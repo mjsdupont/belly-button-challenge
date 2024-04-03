@@ -19,6 +19,7 @@ const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/
 // Iterate through the names Array
     names.forEach((name) => {
       // Append each name as an option to the drop down menu
+      // This is adding each name to the html file as an option element with value = a name in the names array
       dropdownMenu.append("option").text(name).property("value", name);
   });
      // Assign the first name to name variable
@@ -50,6 +51,7 @@ function demo(selectedValue) {
         // Clear the child elements in div with id sample-metadata
         d3.select("#sample-metadata").html("");
   
+        // Object.entries() is a built-in method in JavaScript 
         let entries = Object.entries(obj);
         
         // Iterate through the entries array
@@ -65,7 +67,7 @@ function demo(selectedValue) {
   }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
-//Create a horizontal bar chart  
+//Create a horizontal bar chart 
 
 function bar(selectedValue){
     // Fetch the JSON data and console log it
@@ -84,9 +86,9 @@ function bar(selectedValue){
     console.log(obj);
     //Use sample_values as the values for the bar chart.
     let x_values = obj.sample_values.slice(0,10).reverse();
-    //Use otu_ids as the labels for the bar chart.
+    //Use otu_ids as the labels for the bar chart
     let y_values = obj.otu_ids.slice(0,10).map((otu_id) => `OTU ${otu_id}`).reverse();
-    //Use otu_labels as the hovertext for the chart.
+    //Use otu_labels as the hovertext for the chart
     let title = obj.otu_labels.slice(0,10).reverse();
     console.log(x_values);
     console.log(y_values);
@@ -104,7 +106,7 @@ function bar(selectedValue){
         },
         orientation: "h"
     }];
-    // Add a title and create margins for the graph
+    // Add a title, and create margins for the graph
     let layout = {
         title: "Top 10 OTUs",
         margin: {
@@ -136,9 +138,9 @@ function bubble(selectedValue){
 
      // Use otu_ids for the x values.
      let x_bubbles = obj.otu_ids.map((otu_id) => parseInt(otu_id)); // Convert to integer
-     // Use sample_values for the y values.
+     // Use sample_values for the y values
     let y_bubbles = obj.sample_values;
-   // Use otu_labels for the text values.
+   // Use otu_labels for the text values
     let text = obj.otu_labels;
    // Use sample_values for the marker size
    let markerSize = obj.sample_values;
@@ -178,6 +180,66 @@ let layout = {
 // Plot the bubble chart
 Plotly.newPlot("bubble", trace, layout);
 });
+}
+
+//Create Gauge Chart 
+function gauge(selectedValue){
+    // Fetch the JSON data and console log it
+    d3.json(url).then((data) => {
+    console.log(`Data: ${data}`);
+    
+   // An array of metadata objects
+   let metadata = data.metadata;
+        
+   // Filter data where id = selected value after converting their types 
+   // (bc meta.id is in integer format and selectValue from is in string format)
+   let filteredData = metadata.filter((meta) => meta.id == selectedValue);
+ 
+   // Assign the first object to obj variable
+   let obj = filteredData[0]
+
+   //Get gauge value
+
+   let gaugevalue = obj.wfreq
+
+   console.log(gaugevalue);
+
+
+   // Trace for the data for the gauge chart
+   let trace = [{
+    domain: { x: [0, 1], y: [0, 1] },
+    value: gaugevalue,
+    title: { text: "<b>Belly Button Washing Frequency</b><br>Scrubs per Week", font: {size: 15}},
+    type: "indicator", 
+    mode: "gauge+number",
+    gauge: {
+        axis: {range: [null, 9]}, 
+        bar: {color: "rgb(68,166,198)"},
+        steps: [
+            { range: [0, 1], color: "rgb(233,245,248)" },
+            { range: [1, 2], color: "rgb(218,237,244)" },
+            { range: [2, 3], color: "rgb(203,230,239)" },
+            { range: [3, 4], color: "rgb(188,223,235)" },
+            { range: [4, 5], color: "rgb(173,216,230)" },
+            { range: [5, 6], color: "rgb(158,209,225)" },
+            { range: [6, 7], color: "rgb(143,202,221)" },
+            { range: [7, 8], color: "rgb(128,195,216)" },
+            { range: [8, 9], color: "rgb(113,187,212)" },
+        ]
+    }
+}];
+
+ // Use Plotly to plot the data in a gauge chart
+ Plotly.newPlot("gauge", trace);
+});
+}
+
+ // Toggle to new plots when option changed
+function optionChanged(selectedValue) {
+    demo(selectedValue);
+    bar(selectedValue);
+    bubble(selectedValue);
+    gauge(selectedValue)
 }
 
 init();
