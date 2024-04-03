@@ -4,25 +4,25 @@ Hello!
 
 Please access my dashboard for my belly-button-challenge here: 
 
-[file:///Users/mariajosedupont/Desktop/belly-button-challenge/StarterCode/index.html] (file:///Users/mariajosedupont/Desktop/belly-button-challenge/StarterCode/index.html)
+[file:///Users/mariajosedupont/Desktop/belly-button-challenge/StarterCode/index.html](file:///Users/mariajosedupont/Desktop/belly-button-challenge/StarterCode/index.html)
 - - - -- - - -- - - -- - - -- - - -- - - -- - - -- - - -- - - -
 In my dashboard you will find a: 
 
-*Dropdown Menu
+- Dropdown Menu
 
-*Horizontal Bar Chart
+- Horizontal Bar Chart
 
-*Bubble Chart
+- Bubble Chart
 
-*Gauge Meter
+- Gauge Meter
 
-*Sample Metadata
+- Sample Metadata
 
-*Dynamic Updates
+- Dynamic Updates
 
 - - - -- - - -- - - -- - - -- - - -- - - -- - - -
-*Code: app.js in js folder inside static
+- Code: app.js in js folder inside static
 
-*Image of Dashboard: dashboard.png
+- Image of Dashboard: dashboard.png
 
-Index: index.html
+- Index: index.html
