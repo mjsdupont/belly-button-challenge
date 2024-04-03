@@ -102,7 +102,7 @@ function bar(selectedValue){
         name:"OTU",
         type: "bar",
         marker: {
-            color: "rgb(166,172,237)"
+            color: "rgb(32,124,180)"
         },
         orientation: "h"
     }];
